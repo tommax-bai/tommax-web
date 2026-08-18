@@ -1,0 +1,92 @@
+/* Tommax 画布：深色工作台（对齐 Shotlab 的暗色编辑器基调） */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: #141518;
+  color: #e8e6e1;
+}
+
+.canvas-root { height: 100%; position: relative; }
+.canvas-root .react-flow { background: #141518; }
+
+.topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 16px;
+  background: rgba(20, 21, 24, .88); backdrop-filter: blur(6px);
+  border-bottom: 1px solid #26282e;
+}
+.brand { font-weight: 700; font-size: 15px; color: #ff5f45; }
+.hint { font-size: 12px; color: #8b8f98; }
+
+.toolbar {
+  position: absolute; left: 14px; top: 64px; z-index: 10;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.toolbar button {
+  background: #1e2026; color: #e8e6e1; border: 1px solid #2e313a;
+  border-radius: 8px; padding: 8px 14px; font-size: 13px; cursor: pointer;
+  text-align: left; min-width: 104px;
+}
+.toolbar button:hover { border-color: #ff5f45; color: #ff8a70; }
+
+/* 节点通用 */
+.node {
+  background: #1b1d22; border: 1px solid #2e313a; border-radius: 10px;
+  width: 260px; padding: 10px; font-size: 13px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .35);
+}
+.node-error { border-color: #b3402e; }
+.node-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.node-title { font-weight: 600; font-size: 12.5px; color: #aab0ba; letter-spacing: .02em; }
+.node-close {
+  background: none; border: none; color: #6b7078; font-size: 15px;
+  cursor: pointer; padding: 0 2px; line-height: 1;
+}
+.node-close:hover { color: #ff5f45; }
+
+.node-text textarea {
+  width: 100%; resize: vertical; min-height: 72px;
+  background: #14161a; color: #e8e6e1; border: 1px solid #2a2d34;
+  border-radius: 6px; padding: 8px; font-size: 13px; font-family: inherit;
+}
+.node-text textarea:focus { outline: none; border-color: #ff5f45; }
+
+.node-preview {
+  background: #101216; border: 1px dashed #2c2f37; border-radius: 8px;
+  min-height: 130px; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; margin-bottom: 8px;
+}
+.node-preview img, .node-preview video { width: 100%; display: block; }
+.node-placeholder { color: #5b6068; font-size: 12px; padding: 12px; text-align: center; }
+
+.node-progress { display: flex; flex-direction: column; align-items: center; gap: 8px; color: #aab0ba; }
+.spinner {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2.5px solid #2e313a; border-top-color: #ff5f45;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2s; } }
+
+.node-prompt {
+  width: 100%; background: #14161a; color: #e8e6e1;
+  border: 1px solid #2a2d34; border-radius: 6px; padding: 7px 8px;
+  font-size: 12.5px; margin-bottom: 8px;
+}
+.node-prompt:focus { outline: none; border-color: #ff5f45; }
+
+.node-error-msg { color: #ff8a70; font-size: 12px; margin-bottom: 8px; }
+
+.node-generate {
+  width: 100%; background: #ff5f45; color: #17181b; font-weight: 700;
+  border: none; border-radius: 7px; padding: 8px 0; font-size: 13px; cursor: pointer;
+}
+.node-generate:hover:not(:disabled) { background: #ff7a5e; }
+.node-generate:disabled { background: #3a3d45; color: #8b8f98; cursor: default; }
+
+.react-flow__handle {
+  width: 10px; height: 10px; background: #ff5f45; border: 2px solid #1b1d22;
+}
+.react-flow__minimap { background: #1b1d22; }
